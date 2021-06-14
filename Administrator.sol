@@ -26,7 +26,7 @@ contract Administrator{
         return false;
     }
     
-    function TraderHasEnoughBalance(address trader, uint256 amount) public view returns (bool){
+    function HasTraderEnoughBalance(address trader, uint256 amount) public view returns (bool){
         if(trader != address(0)){
             uint256 balance = _traders[trader].balance;
             if(balance >= amount){
