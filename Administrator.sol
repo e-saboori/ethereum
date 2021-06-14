@@ -40,13 +40,12 @@ contract Administrator{
     function TransferFrom(address sender, address recipient, uint256 amount) public{
         if(sender!=address(0) && recipient!= address(0))
         {
-            require(IsTraderRegistered(msg.sender), "Buyer is not registered");
+            require(IsTraderRegistered(sender), "Buyer is not registered");
             require(IsTraderRegistered(recipient), "Seller is not registered");
-            require(HasTraderEnoughBalance(msg.sender, amount), "Buyer does not have sufficient balance");
+            require(HasTraderEnoughBalance(sender, amount), "Buyer does not have sufficient balance");
             
             _traders[sender].balance -= amount;
             _traders[recipient].balance += amount;
         }
-        
     }
 }
