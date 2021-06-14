@@ -9,6 +9,8 @@ contract Administrator{
         bool isRegistered;
     }
     
+    
+    //mapping(uint256=>address) _tokens;
     mapping(address=>Account) _traders;
     
     function Register(address trader, uint256 balance) public {
@@ -34,5 +36,18 @@ contract Administrator{
         }
         
         return false;
+    }
+    
+    function TransferFrom(address sender, address recipient, uint256 amount) public{
+        if(sender!=address(0) && recipient!= address(0))
+        {
+            require(IsTraderRegistered(msg.sender), "Buyer is not registered");
+            require(IsTraderRegistered(recipient), "Seller is not registered");
+            require(TraderHasEnoughBalance(msg.sender, amount), "Buyer does not have sufficient balance");
+            
+            _traders[sender].balance -= amount;
+            _traders[recipient].balance += amount;
+        }
+        
     }
 }
