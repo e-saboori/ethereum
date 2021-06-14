@@ -42,7 +42,7 @@ contract Administrator{
         {
             require(IsTraderRegistered(msg.sender), "Buyer is not registered");
             require(IsTraderRegistered(recipient), "Seller is not registered");
-            require(TraderHasEnoughBalance(msg.sender, amount), "Buyer does not have sufficient balance");
+            require(HasTraderEnoughBalance(msg.sender, amount), "Buyer does not have sufficient balance");
             
             _traders[sender].balance -= amount;
             _traders[recipient].balance += amount;
