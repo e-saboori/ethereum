@@ -5,12 +5,11 @@ pragma solidity ^0.8.0;
 contract Administrator{
 
     struct Account{
-        uint256 balance; // this can be the token!
+        uint256 balance;
         bool isRegistered;
     }
     
-    
-    //mapping(uint256=>address) _tokens;
+    //mapping(uint256=>address) _tokensOwner;
     mapping(address=>Account) _traders;
     
     function Register(address trader, uint256 balance) public {
