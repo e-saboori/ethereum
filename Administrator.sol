@@ -48,10 +48,14 @@ contract Administrator{
         return __traders[trader].balance;
     }
     
-    function AddTokens(address trader, string memory name, uint256 tokenId) public{
+    function AddToken(address trader, string memory name, uint256 tokenId) public{
         Token ibm = new Token(name, "TNK", 2);
         __traders[trader].tokens[tokenId] = ibm;
-        
+    }
+    
+    function GetToken(address trader, uint256 tokenId) public view returns(Token token){
+        require(IsTraderRegistered(trader));
+        return __traders[trader].tokens[tokenId];
     }
     
     function TransferFrom(
@@ -71,7 +75,7 @@ contract Administrator{
             token.transfer(sender, amount* 10^token.decimals());
             
             __traders[sender].tokens[tokenId] = token;
-            delete __traders[recipient].tokens[tokenId];
+            //delete __traders[recipient].tokens[tokenId];
             __traders[sender].balance -= amount* tokenPrice;
             __traders[recipient].balance += amount * tokenPrice;
             
