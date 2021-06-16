@@ -43,6 +43,17 @@ contract Administrator{
         return false;
     }
 
+    function GetTradersBalance(address trader)public view returns(uint256 balance){
+        require(IsTraderRegistered(trader));
+        return __traders[trader].balance;
+    }
+    
+    function AddTokens(address trader, string memory name, uint256 tokenId) public{
+        Token ibm = new Token(name, "TNK", 2);
+        __traders[trader].tokens[tokenId] = ibm;
+        
+    }
+    
     function TransferFrom(
         address sender, 
         address payable recipient,
@@ -55,6 +66,7 @@ contract Administrator{
             require(HasTraderEnoughBalance(sender, amount), "Buyer does not have sufficient balance");
             
             Token token = __traders[recipient].tokens[tokenId];
+            
             recipient.transfer(amount);
             token.transfer(sender, amount* 10^token.decimals());
             
